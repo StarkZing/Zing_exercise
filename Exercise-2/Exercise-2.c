@@ -26,48 +26,118 @@
 
 
 
-// 输出测试1
-void printf_test1(unsigned char *MessageID)
-{
-    printf("2.1 0x%02X 0x%02X.\r\n", *MessageID, *(MessageID+1));
+// // 输出测试1
+// void printf_test1(unsigned char *MessageID)
+// {
+//     printf("2.1 0x%02X 0x%02X.\r\n", *MessageID, *(MessageID+1));
 
-    printf("2.2 MessageID = 0x%04X.\r\n", *MessageID<<8|*(MessageID+1));
+//     printf("2.2 MessageID = 0x%04X.\r\n", *MessageID<<8|*(MessageID+1));
 
-    printf("2.N MessageID = 0x%04X.\r\n", ((*MessageID)<<8)|(*(MessageID+1)));
+//     printf("2.N MessageID = 0x%04X.\r\n", ((*MessageID)<<8)|(*(MessageID+1)));
 
-    printf("\r\n");
+//     printf("\r\n");
 
-}
-void printf_test2(unsigned short *MessageID)
-{
-    printf("3.1 0x%02X 0x%02X.\r\n", *MessageID, *(MessageID+1));
-    printf("3.2 0x%04X.\r\n", *MessageID);
+// }
+// void printf_test2(unsigned short *MessageID)
+// {
+//     printf("3.1 0x%02X 0x%02X.\r\n", *MessageID, *(MessageID+1));
+//     printf("3.2 0x%04X.\r\n", *MessageID);
 
-    // printf("3.3 MessageID = 0x%04X.\r\n", *MessageID<<8|*(MessageID+1));
+//     // printf("3.3 MessageID = 0x%04X.\r\n", *MessageID<<8|*(MessageID+1));
 
-    // printf("3.N MessageID = 0x%04X.\r\n", ((*MessageID)<<8)|(*(MessageID+1)));
+//     // printf("3.N MessageID = 0x%04X.\r\n", ((*MessageID)<<8)|(*(MessageID+1)));
     
-    printf("\r\n");
-}
-int main(void)
+//     printf("\r\n");
+// }
+// int main(void)
+// {
+//     unsigned char  buf1[2] = {0x12, 0x34};
+//     unsigned short buf2[1] = {0x5678};
+//     printf("\r\n");
+//     printf("1.1 buf1[0] = 0x%02X buf1[1] = 0x%02X.\r\n", buf1[0], buf1[1]);
+//     // printf("1.2 0x%04X.\r\n", buf2[0]);
+//     printf("\r\n");
+//     // printf_test1(buf1);
+//     // printf_test1((unsigned char*)buf2);
+//     printf_test2((unsigned short*)buf1);
+//     printf_test2(buf2);
+// }
+
+
+// 十进制转字符串测试
+/*-------------------------------------[0001]------------------------------
+ * function : decimal to string.
+ * input var: nBits             need to change
+ * outputvar: *outbuf           changed
+ *            outbuflen         changed length
+ * return	: 0xFFFF - Unsuccessful implementation
+ * display	: This function is used to that decimal to string.
+-------------------------------------------------------------------------*/
+unsigned char Decimal2STR(unsigned short nBits, unsigned char *outbuf)
 {
-    unsigned char  buf1[2] = {0x12, 0x34};
-    unsigned short buf2[1] = {0x5678};
-    printf("\r\n");
-    printf("1.1 buf1[0] = 0x%02X buf1[1] = 0x%02X.\r\n", buf1[0], buf1[1]);
-    // printf("1.2 0x%04X.\r\n", buf2[0]);
-    printf("\r\n");
-    // printf_test1(buf1);
-    // printf_test1((unsigned char*)buf2);
-    printf_test2((unsigned short*)buf1);
-    printf_test2(buf2);
+	unsigned char buf[8] = {0};
+	unsigned short len = 0;
+	if ( nBits < 10 )
+	{
+		outbuf[0] = nBits + 48;
+		len = 2;
+	}
+	else if (( nBits > 10 ) && ( nBits < 100 ))
+	{
+		outbuf[0] = nBits%10 + 48;
+		outbuf[1] = nBits/10 + 48;
+		len = 3;
+	}
+	else if (( nBits > 100 ) && ( nBits < 1000 ))
+	{
+		outbuf[0] = (nBits%100)%10 + 48;
+		outbuf[1] = (nBits%100)/10 + 48;
+		outbuf[2] = nBits/100 + 48;
+		len = 4;
+	}
+	else if (( nBits > 1000 ) && ( nBits < 10000 ))
+	{
+		outbuf[0] = ((nBits%1000)%100)%10 + 48;
+		outbuf[1] = ((nBits%1000)%100)/10 + 48;
+		outbuf[2] = (nBits%1000)/100 + 48;
+		outbuf[3] = nBits/1000 + 48;
+		len = 5;
+	}
+	else if (( nBits > 10000 ) && ( nBits < 100000 ))
+	{
+		outbuf[0] = (((nBits%10000)%1000)%100)%10 + 48;
+		outbuf[1] = (((nBits%10000)%1000)%100)/10 + 48;
+		outbuf[2] = ((nBits%10000)%1000)/100 + 48;
+		outbuf[3] = (nBits%10000)/1000 + 48;
+		outbuf[4] = nBits/10000 + 48;
+		len = 6;
+	}
+	else
+	{
+		printf("Error.");
+		len = 0xFFFF;
+	}
+
+	if(len != 0xFFFF)
+	{
+		outbuf[len-1] = '\0';
+	}
+
+	return len;
 }
 
+void main()
+{
+    unsigned short prot[5] = {1, 22, 333, 4444, 55555};
+    char str[20] = {0};
+    unsigned char ret = 0;
 
-
-
-
-
+    for (size_t i = 0; i < 5; i++)
+    {
+        ret = Decimal2STR(prot[i], str);
+        printf("port = %X, str = %s, len = %d.\r\n", prot[i], str, ret);
+    }
+}
 
 
 
