@@ -70,7 +70,7 @@
  * input var: nBits             need to change
  * outputvar: *outbuf           changed
  *            outbuflen         changed length
- * return	: 0xFFFF - Unsuccessful implementation
+ * return	: 0 - Unsuccessful implementation
  * display	: This function is used to that decimal to string.
 -------------------------------------------------------------------------*/
 unsigned char Decimal2STR(unsigned short nBits, unsigned char *outbuf)
@@ -118,7 +118,7 @@ unsigned char Decimal2STR(unsigned short nBits, unsigned char *outbuf)
 		len = 0xFFFF;
 	}
 
-	if(len != 0xFFFF)
+	if(len != 0)
 	{
 		outbuf[len-1] = '\0';
 	}
