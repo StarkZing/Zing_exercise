@@ -73,77 +73,93 @@
  * return	: 0 - Unsuccessful implementation
  * display	: This function is used to that decimal to string.
 -------------------------------------------------------------------------*/
-unsigned char Decimal2STR(unsigned short nBits, unsigned char *outbuf)
-{
-	unsigned char buf[8] = {0};
-	unsigned short len = 0;
-	if ( nBits < 10 )
-	{
-		outbuf[0] = nBits + 48;
-		len = 2;
-	}
-	else if (( nBits > 10 ) && ( nBits < 100 ))
-	{
-		outbuf[0] = nBits%10 + 48;
-		outbuf[1] = nBits/10 + 48;
-		len = 3;
-	}
-	else if (( nBits > 100 ) && ( nBits < 1000 ))
-	{
-		outbuf[0] = (nBits%100)%10 + 48;
-		outbuf[1] = (nBits%100)/10 + 48;
-		outbuf[2] = nBits/100 + 48;
-		len = 4;
-	}
-	else if (( nBits > 1000 ) && ( nBits < 10000 ))
-	{
-		outbuf[0] = ((nBits%1000)%100)%10 + 48;
-		outbuf[1] = ((nBits%1000)%100)/10 + 48;
-		outbuf[2] = (nBits%1000)/100 + 48;
-		outbuf[3] = nBits/1000 + 48;
-		len = 5;
-	}
-	else if (( nBits > 10000 ) && ( nBits < 100000 ))
-	{
-		outbuf[0] = (((nBits%10000)%1000)%100)%10 + 48;
-		outbuf[1] = (((nBits%10000)%1000)%100)/10 + 48;
-		outbuf[2] = ((nBits%10000)%1000)/100 + 48;
-		outbuf[3] = (nBits%10000)/1000 + 48;
-		outbuf[4] = nBits/10000 + 48;
-		len = 6;
-	}
-	else
-	{
-		printf("Error.");
-		len = 0xFFFF;
-	}
+// unsigned char Decimal2STR(unsigned short nBits, unsigned char *outbuf)
+// {
+// 	unsigned char buf[8] = {0};
+// 	unsigned short len = 0;
+// 	if ( nBits < 10 )
+// 	{
+// 		outbuf[0] = nBits + 48;
+// 		len = 2;
+// 	}
+// 	else if (( nBits > 10 ) && ( nBits < 100 ))
+// 	{
+// 		outbuf[0] = nBits%10 + 48;
+// 		outbuf[1] = nBits/10 + 48;
+// 		len = 3;
+// 	}
+// 	else if (( nBits > 100 ) && ( nBits < 1000 ))
+// 	{
+// 		outbuf[0] = (nBits%100)%10 + 48;
+// 		outbuf[1] = (nBits%100)/10 + 48;
+// 		outbuf[2] = nBits/100 + 48;
+// 		len = 4;
+// 	}
+// 	else if (( nBits > 1000 ) && ( nBits < 10000 ))
+// 	{
+// 		outbuf[0] = ((nBits%1000)%100)%10 + 48;
+// 		outbuf[1] = ((nBits%1000)%100)/10 + 48;
+// 		outbuf[2] = (nBits%1000)/100 + 48;
+// 		outbuf[3] = nBits/1000 + 48;
+// 		len = 5;
+// 	}
+// 	else if (( nBits > 10000 ) && ( nBits < 100000 ))
+// 	{
+// 		outbuf[0] = (((nBits%10000)%1000)%100)%10 + 48;
+// 		outbuf[1] = (((nBits%10000)%1000)%100)/10 + 48;
+// 		outbuf[2] = ((nBits%10000)%1000)/100 + 48;
+// 		outbuf[3] = (nBits%10000)/1000 + 48;
+// 		outbuf[4] = nBits/10000 + 48;
+// 		len = 6;
+// 	}
+// 	else
+// 	{
+// 		printf("Error.");
+// 		len = 0xFFFF;
+// 	}
 
-	if(len != 0)
-	{
-		outbuf[len-1] = '\0';
-	}
+// 	if(len != 0)
+// 	{
+// 		outbuf[len-1] = '\0';
+// 	}
 
-	return len;
-}
+// 	return len;
+// }
 
+// void main()
+// {
+//     unsigned short prot[5] = {1, 22, 333, 4444, 55555};
+//     char str[20] = {0};
+//     unsigned char ret = 0;
+
+// 	unsigned short prot = 11010;
+
+// 	ret = Decimal2STR(prot[i], str);
+// 	printf("port = %X, str = %s, len = %d.\r\n", prot[i], str, ret);
+
+//     for (size_t i = 0; i < 5; i++)
+//     {
+//         ret = Decimal2STR(prot[i], str);
+//         printf("port = %X, str = %s, len = %d.\r\n", prot[i], str, ret);
+//     }
+// }
+
+
+
+
+// 字符串测试2
 void main()
 {
-    unsigned short prot[5] = {1, 22, 333, 4444, 55555};
-    char str[20] = {0};
-    unsigned char ret = 0;
+	char tips[] = "IP is";
+	char ip[] = "192.168.0.1";
+	char str[100] = {0};
+	int port = 8033;
 
-    for (size_t i = 0; i < 5; i++)
-    {
-        ret = Decimal2STR(prot[i], str);
-        printf("port = %X, str = %s, len = %d.\r\n", prot[i], str, ret);
-    }
+	sprintf(str, "IP is %s:%d.", ip, port);
+	printf("\r\n");
+	printf("%s", str);
+	printf("\r\n");
 }
-
-
-
-
-
-
 
 
 
