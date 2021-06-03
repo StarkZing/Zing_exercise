@@ -202,6 +202,7 @@ void main(void)
 		testdatabuf[2+3*i] = '-';
 	}
 
+	printf("%s\r\n",testdatabuf);
 	for (size_t i = 0; i < 100; i++)
 	{
 		printf("%c", testdatabuf[i]);
