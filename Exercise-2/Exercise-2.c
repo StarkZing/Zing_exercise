@@ -146,22 +146,67 @@
 
 
 
+// // 字符串测试2
+// void main()
+// {
+// 	char tips[] = "IP is";
+// 	char ip[] = "192.168.0.1";
+// 	char str[100] = {0};
+// 	int port = 8033;
 
-// 字符串测试2
-void main()
+// 	sprintf(str, "IP is %s:%d.", ip, port);
+// 	printf("\r\n");
+// 	printf("%s", str);
+// 	printf("\r\n");
+// }
+
+
+// 866 82-30-58-43-15-19
+
+// 866823058431519
+
+// 823058431519
+// 0123456789
+
+// 82 30 58 43 15 19
+// 0123456789
+
+// 82-30-58-43-15-19
+
+
+
+// 字符串测试3
+void main(void)
 {
-	char tips[] = "IP is";
-	char ip[] = "192.168.0.1";
-	char str[100] = {0};
-	int port = 8033;
+	int ret = 0;
+	int a;
+	char testdatabuf[100] = "823058431519";
 
-	sprintf(str, "IP is %s:%d.", ip, port);
-	printf("\r\n");
-	printf("%s", str);
-	printf("\r\n");
+	// memcpy(testdatabuf+3, testdatabuf+2, 11);
+	// testdatabuf[2] = '-';
+	// memcpy(testdatabuf+6, testdatabuf+5, 9);
+	// testdatabuf[5] = '-';
+	// memcpy(testdatabuf+9, testdatabuf+8, 7);
+	// testdatabuf[8] = '-';
+	// memcpy(testdatabuf+12, testdatabuf+11, 5);
+	// testdatabuf[11] = '-';
+	// memcpy(testdatabuf+15, testdatabuf+14, 3);
+	// testdatabuf[14] = '-';
+
+	a = (strlen(testdatabuf)-1)/2;
+	ret = strlen(testdatabuf);
+	for (size_t i = 0; i < a; i++)
+	{
+		ret -= 2;
+		memcpy(testdatabuf+3+3*i, testdatabuf+2+3*i, ret);
+		testdatabuf[2+3*i] = '-';
+	}
+
+	for (size_t i = 0; i < 100; i++)
+	{
+		printf("%c", testdatabuf[i]);
+	}
 }
-
-
 
 
 
