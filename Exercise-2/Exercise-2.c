@@ -181,6 +181,8 @@ void main(void)
 	int ret = 0;
 	int a;
 	char testdatabuf[100] = "823058431519";
+	
+	printf("%x\r\n",testdatabuf[18]);
 
 	// memcpy(testdatabuf+3, testdatabuf+2, 11);
 	// testdatabuf[2] = '-';
@@ -203,6 +205,8 @@ void main(void)
 	}
 
 	printf("%s\r\n",testdatabuf);
+	printf("%x\r\n",testdatabuf[18]);
+	printf("%x\r\n",testdatabuf[19]);
 	for (size_t i = 0; i < 100; i++)
 	{
 		printf("%c", testdatabuf[i]);
