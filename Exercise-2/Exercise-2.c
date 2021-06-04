@@ -161,59 +161,74 @@
 // }
 
 
-// 866 82-30-58-43-15-19
+// // 866 82-30-58-43-15-19
+// // 866823058431519
+// // 823058431519
+// // 0123456789
+// // 82 30 58 43 15 19
+// // 0123456789
+// // 82-30-58-43-15-19
+// // 字符串测试3
+// void main(void)
+// {
+// 	int ret = 0;
+// 	int a;
+// 	char testdatabuf[100] = "823058431519";
+	
+// 	printf("%x\r\n",testdatabuf[18]);
 
-// 866823058431519
+// 	// memcpy(testdatabuf+3, testdatabuf+2, 11);
+// 	// testdatabuf[2] = '-';
+// 	// memcpy(testdatabuf+6, testdatabuf+5, 9);
+// 	// testdatabuf[5] = '-';
+// 	// memcpy(testdatabuf+9, testdatabuf+8, 7);
+// 	// testdatabuf[8] = '-';
+// 	// memcpy(testdatabuf+12, testdatabuf+11, 5);
+// 	// testdatabuf[11] = '-';
+// 	// memcpy(testdatabuf+15, testdatabuf+14, 3);
+// 	// testdatabuf[14] = '-';
 
-// 823058431519
-// 0123456789
+// 	a = (strlen(testdatabuf)-1)/2;
+// 	ret = strlen(testdatabuf);
+// 	for (size_t i = 0; i < a; i++)
+// 	{
+// 		ret -= 2;
+// 		memcpy(testdatabuf+3+3*i, testdatabuf+2+3*i, ret);
+// 		testdatabuf[2+3*i] = '-';
+// 	}
 
-// 82 30 58 43 15 19
-// 0123456789
+// 	printf("%s, %d\r\n",testdatabuf, strlen(testdatabuf));
+// 	printf("%x\r\n",testdatabuf[18]);
+// 	printf("%x\r\n",testdatabuf[19]);
+// 	for (size_t i = 0; i < 100; i++)
+// 	{
+// 		printf("%c", testdatabuf[i]);
+// 	}
+// }
 
-// 82-30-58-43-15-19
+typedef struct
+{
+	unsigned char IMEI[15];
+	unsigned char IMEI_LEN;
+}HN_MAPService_Info_t;
 
-
-
-// 字符串测试3
+void z_printf_struct_2(HN_MAPService_Info_t *val_2)
+{
+	printf("3 - [%s]\r\n", val_2->IMEI);
+}
+void z_printf_struct_1(HN_MAPService_Info_t *val_1)
+{
+	printf("2 - [%s]\r\n", val_1->IMEI);
+	z_printf_struct_2(val_1);
+}
+// 地址传值
 void main(void)
 {
-	int ret = 0;
-	int a;
-	char testdatabuf[100] = "823058431519";
-	
-	printf("%x\r\n",testdatabuf[18]);
-
-	// memcpy(testdatabuf+3, testdatabuf+2, 11);
-	// testdatabuf[2] = '-';
-	// memcpy(testdatabuf+6, testdatabuf+5, 9);
-	// testdatabuf[5] = '-';
-	// memcpy(testdatabuf+9, testdatabuf+8, 7);
-	// testdatabuf[8] = '-';
-	// memcpy(testdatabuf+12, testdatabuf+11, 5);
-	// testdatabuf[11] = '-';
-	// memcpy(testdatabuf+15, testdatabuf+14, 3);
-	// testdatabuf[14] = '-';
-
-	a = (strlen(testdatabuf)-1)/2;
-	ret = strlen(testdatabuf);
-	for (size_t i = 0; i < a; i++)
-	{
-		ret -= 2;
-		memcpy(testdatabuf+3+3*i, testdatabuf+2+3*i, ret);
-		testdatabuf[2+3*i] = '-';
-	}
-
-	printf("%s\r\n",testdatabuf);
-	printf("%x\r\n",testdatabuf[18]);
-	printf("%x\r\n",testdatabuf[19]);
-	for (size_t i = 0; i < 100; i++)
-	{
-		printf("%c", testdatabuf[i]);
-	}
+	HN_MAPService_Info_t hn_test_data;
+	sprintf(hn_test_data.IMEI, "%s", "1234567890");
+	printf("1 - [%s]\r\n", hn_test_data.IMEI);
+	z_printf_struct_1(&hn_test_data);
 }
-
-
 
 
 
